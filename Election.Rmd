@@ -12,11 +12,14 @@ output:
 bibliography: 
 biblio-style: apsr
 geometry: margin=1in
-fontfamily: libertine
 fontsize: 11pt
 # spacing: double
 endnote: no
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
 
 ```{r function-units}
 # Function to print units by row based on the first digit
@@ -33,29 +36,39 @@ directory <- '/Users/cervas/My Drive/GitHub/amberson'
 ```
 
 ```{r}
-registration <- read.csv(paste0(directory, "/Elections/2024/2024-05-17-atca-voter-list.csv"))
-head(registration)
+registration <- read.csv(paste0(directory, "/Elections/registration.csv"))
+unitWeights <-  read.csv(paste0(directory, '/Elections/unit-weights.csv'))
+
+# Registration and Unit weight Merge
+registration <- merge(registration,unitWeights, by="Unit", all=T)
 ```
 
-# Total Units Voted
 ```{r read-OpaVote}
+# Read OpaVote Files
 voted <- read.table("/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/voted.txt")
 voted$voted <- 1
 
 not_voted <- read.table('/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/not_voted.txt')
 not_voted$not_voted <- 1
 
-voted_merge <- merge(registration,voted, by.x="Email", by.y="V1", all=T)
-units_voted <- sort(voted_merge$Unit[voted_merge$voted %in% 1])
-
 # Exclude those who are disabled (not usual)
 disabled_voted <- read.table('/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/disabled.txt')
 disabled_voted$disabled <- 1
+```
+
+```{r merge-files}
+# Registration and Voted
+voted_merge <- merge(registration,voted, by.x="Email", by.y="V1", all=T)
+units_voted <- sort(voted_merge$Unit[voted_merge$voted %in% 1])
+
 
 # Not voted
 voted_notvoted_merge <- merge(voted_merge,not_voted, by.x="Email", by.y="V1", all=T)
+
+# Disabled
 voted_notvoted_disabled_merge <- merge(voted_notvoted_merge,disabled_voted, by.x="Email", by.y="V1", all.x=T)
 
+# Sort
 units_notvoted <- sort(voted_notvoted_disabled_merge$Unit[is.na(voted_notvoted_disabled_merge$disable) & is.na(voted_notvoted_disabled_merge$voted)])
 
 # Visited OpaVote?
