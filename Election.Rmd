@@ -26,25 +26,26 @@ knitr::opts_chunk$set(echo = FALSE)
 print_units_by_row <- function(units) {
   first_digits <- unique(floor(units / 100))
   for (digit in first_digits) {
-    cat(units[floor(units / 100) == digit], "\n")
+    # Using paste with collapse="," to add commas between numbers
+    cat(paste(units[floor(units / 100) == digit], collapse=", "), "\n")
   }
 }
 ```
 
 ```{r directory}
-directory <- '/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andrew.cmu.edu/My Drive/GitHub/amberson/Elections/2024/2024-12-15'
+directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads'
 
-unitWeights <- read.csv("https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/Elections/unit-weights.csv?token=GHSAT0AAAAAAC4KUAW2YVGVENQTVHQYYKZ4Z3JY2HA")
+emails <- read.csv("https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/amberson-emails.csv")
 
-# unitWeights <- read.csv('/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andrew.cmu.edu/My Drive/GitHub/amberson/Elections/amberson-emails.csv')
+# unitWeights <- read.csv('https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/unit-weights.csv')
 ```
 
 ```{r}
 registration <- read.table(paste0(directory, "/voter_emails.txt"), header=F, sep=",")
 names(registration) <- c("Email", "Weight")
-head(registration)
 
-merge(registration,unitWeights, by="Email")
+registration <- merge(registration,emails, by=c("Email", "Weight"), all=T)
+head(registration)
 ```
 
 ```{r read-OpaVote}
@@ -64,7 +65,8 @@ voted$voted <- 1
 # Registration and Voted
 voted_merge <- merge(registration,voted, by.x="Email",by.y="V1", all=T)
 units_voted <- sort(voted_merge$Unit[voted_merge$voted %in% 1])
-
+units_voted_weight <- sort(voted_merge$Weight[voted_merge$voted %in% 1])
+sum(units_voted_weight)/sum(registration$Weight)
 
 # Not voted
 voted_notvoted_merge <- merge(voted_merge,not_voted, by.x="Email", by.y="V1", all=T)
