@@ -50,7 +50,7 @@ head(registration)
 
 ```{r read-OpaVote}
 # Read OpaVote Files
-voted <- read.table(paste0(directory, "/voted.txt"))
+voted <- read.table(paste0(directory, "/voted-2.txt"))
 voted$voted <- 1
 
 # not_voted <- read.table(paste0(directory, '/not_voted.txt'))
