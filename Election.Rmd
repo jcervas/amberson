@@ -33,7 +33,7 @@ print_units_by_row <- function(units) {
 ```
 
 ```{r directory}
-directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads'
+directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/'
 
 emails <- read.csv("https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/amberson-emails.csv")
 
@@ -41,7 +41,7 @@ emails <- read.csv("https://raw.githubusercontent.com/jcervas/amberson/refs/head
 ```
 
 ```{r}
-registration <- read.table(paste0(directory, "/voter_emails.txt"), header=F, sep=",")
+registration <- read.table(paste0(directory, "voter_emails.txt"), header=F, sep=",")
 names(registration) <- c("Email", "Weight")
 
 registration <- merge(registration,emails, by=c("Email", "Weight"), all=T)
@@ -50,15 +50,15 @@ head(registration)
 
 ```{r read-OpaVote}
 # Read OpaVote Files
-voted <- read.table(paste0(directory, "/voted-2.txt"))
+voted <- read.table(paste0(directory, "voted.txt"))
 voted$voted <- 1
 
-# not_voted <- read.table(paste0(directory, '/not_voted.txt'))
-# not_voted$not_voted <- 1
+not_voted <- read.table(paste0(directory, 'not_voted.txt'))
+not_voted$not_voted <- 1
 
 # Exclude those who are disabled (not usual)
-# disabled_voted <- read.table('/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/disabled.txt')
-# disabled_voted$disabled <- 1
+disabled_voted <- read.table(paste0(directory, 'disabled.txt'))
+disabled_voted$disabled <- 1
 ```
 
 ```{r merge-files}
@@ -66,7 +66,8 @@ voted$voted <- 1
 voted_merge <- merge(registration,voted, by.x="Email",by.y="V1", all=T)
 units_voted <- sort(voted_merge$Unit[voted_merge$voted %in% 1])
 units_voted_weight <- sort(voted_merge$Weight[voted_merge$voted %in% 1])
-sum(units_voted_weight)/sum(registration$Weight)
+cat("Reached Quorum? ",
+sum(units_voted_weight)/sum(registration$Weight))
 
 # Not voted
 voted_notvoted_merge <- merge(voted_merge,not_voted, by.x="Email", by.y="V1", all=T)
