@@ -66,8 +66,11 @@ disabled_voted$disabled <- 1
 voted_merge <- merge(registration,voted, by.x="Email",by.y="V1", all=T)
 units_voted <- sort(voted_merge$Unit[voted_merge$voted %in% 1])
 units_voted_weight <- sort(voted_merge$Weight[voted_merge$voted %in% 1])
+
+votes_cast <- sum(voted_merge$Weight[voted_merge$voted %in% 1])
+votes_total <- sum(emails$Weight)
 cat("Reached Quorum? ",
-sum(units_voted_weight)/sum(registration$Weight))
+votes_cast/votes_total)
 
 # Not voted
 voted_notvoted_merge <- merge(voted_merge,not_voted, by.x="Email", by.y="V1", all=T)
