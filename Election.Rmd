@@ -33,7 +33,7 @@ print_units_by_row <- function(units) {
 ```
 
 ```{r directory}
-directory <- '/Users/cervas/Downloads/'
+directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/'
 
 emails <- read.csv("https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/amberson-emails.csv")
 
