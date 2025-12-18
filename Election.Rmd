@@ -35,7 +35,7 @@ print_units_by_row <- function(units) {
 ```{r directory}
 directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/'
 
-emails <- read.csv("https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/amberson-emails.csv")
+emails <- read.csv('/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andrew.cmu.edu/My Drive/GitHub/amberson/amberson-emails.csv')
 
 # unitWeights <- read.csv('https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/unit-weights.csv')
 ```
