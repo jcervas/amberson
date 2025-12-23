@@ -33,7 +33,7 @@ print_units_by_row <- function(units) {
 ```
 
 ```{r directory}
-directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/'
+directory <- "/Users/cervas/Downloads/"
 
 emails <- read.csv('/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andrew.cmu.edu/My Drive/GitHub/amberson/amberson-emails.csv')
 
@@ -57,8 +57,8 @@ not_voted <- read.table(paste0(directory, 'not_voted.txt'))
 not_voted$not_voted <- 1
 
 # Exclude those who are disabled (not usual)
-disabled_voted <- read.table(paste0(directory, 'disabled.txt'))
-disabled_voted$disabled <- 1
+# disabled_voted <- read.table(paste0(directory, 'disabled.txt'))
+# disabled_voted$disabled <- 1
 ```
 
 ```{r merge-files}
