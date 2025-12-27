@@ -33,7 +33,7 @@ print_units_by_row <- function(units) {
 ```
 
 ```{r directory}
-directory <- "/Users/cervas/Downloads/"
+directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/'
 
 emails <- read.csv('/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andrew.cmu.edu/My Drive/GitHub/amberson/amberson-emails.csv')
 
@@ -76,17 +76,17 @@ votes_cast/votes_total)
 voted_notvoted_merge <- merge(voted_merge,not_voted, by.x="Email", by.y="V1", all=T)
 
 # Disabled
-voted_notvoted_disabled_merge <- merge(voted_notvoted_merge,disabled_voted, by.x="Email", by.y="V1", all.x=T)
+# voted_notvoted_merge <- merge(voted_notvoted_merge,disabled_voted, by.x="Email", by.y="V1", all.x=T)
 
 # Sort
 units_notvoted <- sort(voted_merge$Unit[!voted_merge$voted %in% 1])
 
-units_notvoted <- sort(voted_notvoted_disabled_merge$Unit[is.na(voted_notvoted_disabled_merge$disable) & is.na(voted_notvoted_disabled_merge$voted)])
+units_notvoted <- sort(voted_notvoted_merge$Unit[is.na(voted_notvoted_merge$disable) & is.na(voted_notvoted_merge$voted)])
 
 # Visited OpaVote?
 # visited <- read.table('/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/visited.txt')
 # visited$visited <- 1
-# voted_notvoted_disabled_visited_merge <- merge(voted_notvoted_disabled_merge,visited, by.x="Email", by.y="V1", all.x=T)
+# voted_notvoted_disabled_visited_merge <- merge(voted_notvoted_merge,visited, by.x="Email", by.y="V1", all.x=T)
 # sort(voted_notvoted_disabled_visited_merge$Unit[
 #   (is.na(voted_notvoted_disabled_visited_merge$disable) & 
 #    is.na(voted_notvoted_disabled_visited_merge$voted)) & 
@@ -100,9 +100,16 @@ units_notvoted <- sort(voted_notvoted_disabled_merge$Unit[is.na(voted_notvoted_d
 sum(voted$voted)
 ```
 
+# Percentage of owners
+```{r}
+paste0(100 * sum(voted$voted)/dim(registration)[1], "%")
+
+
+
 # Unit Percentage (Weighted) voted"
 ```{r}
-paste0(round(sum(voted_merge$Weight[voted_merge$voted %in% 1])/999989, d=3) * 100, "%")
+total_vote_weight <- sum(voted_merge$Weight[voted_merge$voted %in% 1])
+paste0(round(total_vote_weight/999989, d=3) * 100, "%")
 ```
 
 # Units that have voted
