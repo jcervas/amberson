@@ -33,7 +33,7 @@ print_units_by_row <- function(units) {
 ```
 
 ```{r directory}
-directory <- '/Users/cervas/Library/Mobile Documents/com~apple~CloudDocs/Downloads/'
+directory <- '/Users/cervas/Downloads'
 
 emails <- read.csv('/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andrew.cmu.edu/My Drive/GitHub/amberson/amberson-emails.csv')
 
@@ -41,7 +41,7 @@ emails <- read.csv('/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andre
 ```
 
 ```{r}
-registration <- read.table(paste0(directory, "voter_emails.txt"), header=F, sep=",")
+registration <- read.table(file.path(directory, "voter_emails.txt"), header=F, sep=",")
 names(registration) <- c("Email", "Weight")
 
 registration <- merge(registration,emails, by=c("Email", "Weight"), all=T)
@@ -50,15 +50,15 @@ head(registration)
 
 ```{r read-OpaVote}
 # Read OpaVote Files
-voted <- read.table(paste0(directory, "voted.txt"))
+voted <- read.table(file.path(directory, "voted.txt"))
 voted$voted <- 1
 
-not_voted <- read.table(paste0(directory, 'not_voted.txt'))
+not_voted <- read.table(file.path(directory, 'not_voted.txt'))
 not_voted$not_voted <- 1
 
 # Exclude those who are disabled (not usual)
-# disabled_voted <- read.table(paste0(directory, 'disabled.txt'))
-# disabled_voted$disabled <- 1
+disabled_voted <- read.table(file.path(directory, 'disabled.txt'))
+disabled_voted$disabled <- 1
 ```
 
 ```{r merge-files}
@@ -76,7 +76,7 @@ votes_cast/votes_total)
 voted_notvoted_merge <- merge(voted_merge,not_voted, by.x="Email", by.y="V1", all=T)
 
 # Disabled
-# voted_notvoted_merge <- merge(voted_notvoted_merge,disabled_voted, by.x="Email", by.y="V1", all.x=T)
+voted_notvoted_merge <- merge(voted_notvoted_merge,disabled_voted, by.x="Email", by.y="V1", all.x=T)
 
 # Sort
 units_notvoted <- sort(voted_merge$Unit[!voted_merge$voted %in% 1])
