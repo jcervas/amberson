@@ -103,7 +103,7 @@ sum(voted$voted)
 # Percentage of owners
 ```{r}
 paste0(100 * sum(voted$voted)/dim(registration)[1], "%")
-
+```
 
 
 # Unit Percentage (Weighted) voted"
