@@ -1,20 +1,21 @@
 ---
 title: "Amberson Election Status"
-author: "Jonathan Cervas"
-affiliation: 
+author: "Report by Jonathan Cervas"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
-output: 
+output:
+  word_document: default
   pdf_document:
     citation_package: natbib
     keep_tex: false
     fig_caption: true
     latex_engine: pdflatex
-bibliography: 
+subtitle: May 2026 Bylaw Vote
+affiliation: null
+bibliography: null
 biblio-style: apsr
 geometry: margin=1in
 fontsize: 11pt
-# spacing: double
-endnote: no
+endnote: false
 ---
 
 ```{r setup, include=FALSE}
@@ -36,11 +37,9 @@ print_units_by_row <- function(units) {
 directory <- '/Users/cervas/Downloads'
 
 emails <- read.csv('/Users/cervas/Library/CloudStorage/GoogleDrive-jcervas@andrew.cmu.edu/My Drive/GitHub/amberson/amberson-emails.csv')
-
-# unitWeights <- read.csv('https://raw.githubusercontent.com/jcervas/amberson/refs/heads/main/unit-weights.csv')
 ```
 
-```{r}
+```{r, results='hide'}
 registration <- read.table(file.path(directory, "voter_emails.txt"), header=F, sep=",")
 names(registration) <- c("Email", "Weight")
 
@@ -69,8 +68,6 @@ units_voted_weight <- sort(voted_merge$Weight[voted_merge$voted %in% 1])
 
 votes_cast <- sum(voted_merge$Weight[voted_merge$voted %in% 1])
 votes_total <- sum(emails$Weight)
-cat("Reached Quorum? ",
-votes_cast/votes_total)
 
 # Not voted
 voted_notvoted_merge <- merge(voted_merge,not_voted, by.x="Email", by.y="V1", all=T)
@@ -95,6 +92,11 @@ units_notvoted <- sort(voted_notvoted_merge$Unit[is.na(voted_notvoted_merge$disa
 
 ```
 
+# Reached Quorum?
+```{r quorum}
+paste0(round(votes_cast/votes_total, d=3) * 100, "%")
+```
+
 # Number of voters
 ```{r voted-output}
 sum(voted$voted)
@@ -102,22 +104,15 @@ sum(voted$voted)
 
 # Percentage of owners
 ```{r}
-paste0(100 * sum(voted$voted)/dim(registration)[1], "%")
+paste0(100 * round(sum(voted$voted)/dim(registration)[1], d=3), "%")
 ```
 
-
-# Unit Percentage (Weighted) voted"
-```{r}
-total_vote_weight <- sum(voted_merge$Weight[voted_merge$voted %in% 1])
-paste0(round(total_vote_weight/999989, d=3) * 100, "%")
-```
-
-# Units that have voted
+# Units that voted
 ```{r}
 print_units_by_row(units_voted)
 ```
 
-# Units that have not voted
+# Units that did not vote
 ```{r}
 print_units_by_row(units_notvoted)
 ```
