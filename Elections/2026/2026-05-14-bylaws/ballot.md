@@ -1,6 +1,6 @@
 # Amberson Towers May 2026 Bylaws Vote
 
-The *Amberson Towers Condominium Association Council* held the annual owners meeting on Monday, May 17, 2026 at 7:00pm. At that meeting, a discussion about changing the bylaws occurred. 
+The *Amberson Towers Condominium Association Council* held the annual owners meeting on Monday, May 11, 2026 at 7:00pm. At that meeting, a discussion about changing the bylaws occurred. 
 
 **Currently~**
 ARTICLE IV: Meetings and Voting Rights of Unit Owner

@@ -1,6 +1,6 @@
 # Amberson Towers 2026 Council Election
 
-The *Amberson Towers Condominium Association Council* held the annual owners meeting on Monday, May 17, 2026 at 7:00pm. Prior to the meeting, the council announced the election for one seat on the council. The Election Committee soliciated self-nominations, for which we received two. Candidate statements were sent in a separate email by Acri Community Realty on May 4, 2026. The two candidates are Gerry LaVan and Seyed Nourashrafeddin.
+The *Amberson Towers Condominium Association Council* held the annual owners meeting on Monday, May 11, 2026 at 7:00pm. Prior to the meeting, the council announced the election for one seat on the council. The Election Committee soliciated self-nominations, for which we received two. Candidate statements were sent in a separate email by Acri Community Realty on May 4, 2026. The two candidates are Gerry LaVan and Seyed Nourashrafeddin.
 
 This is an election for one (1) member of Council whose terms will run from 2026 until 2029; It is a full 3-year term.
 
